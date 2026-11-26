@@ -3,19 +3,45 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lily Point-Lines</title>
+<title>I’m Sorry</title>
 <style>
   html,body{margin:0;height:100%;background:#000;overflow:hidden}
   canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+  .sorry{
+    position:fixed;left:0;right:0;bottom:0;z-index:5;
+    padding:56px 20px calc(22px + env(safe-area-inset-bottom,0px));
+    text-align:center;pointer-events:none;
+    background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.6) 55%,rgba(0,0,0,0) 100%);
+    opacity:0;transform:translateY(14px);
+    animation:sorryIn 2.4s ease 1.2s forwards;
+  }
+  .sorry h2{
+    margin:0 0 8px;font:italic 400 clamp(22px,4.2vw,34px)/1.2 Georgia,"Times New Roman",serif;
+    color:#ffd3e0;letter-spacing:.02em;text-shadow:0 0 18px rgba(240,80,130,.55);
+  }
+  .sorry p{
+    margin:0 auto;max-width:560px;
+    font:400 clamp(14px,2.4vw,17px)/1.65 Georgia,"Times New Roman",serif;
+    color:rgba(255,236,241,.92);text-shadow:0 1px 8px rgba(0,0,0,.8);
+  }
+  .sorry .sig{margin-top:8px;font-style:italic;color:#ff9fbc}
+  @keyframes sorryIn{to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.sorry{animation-duration:.01s;animation-delay:0s}}
 </style>
 </head>
 <body>
 <canvas id="gl"></canvas>
+<div class="sorry">
+  <h2>I’m Sorry Logno</h2>
+  <p>I'm Sorry For Everything What I Did. Please Forgive Me This Time And Give Me A Chance. I Promise I'll Try To Do My Best ❤️‍🩹</p>
+  <p class="sig">— I Truly Love You</p>
+</div>
 <script>
 
 const TAU = Math.PI * 2;
 const cv = document.getElementById('gl');
 const gl = cv.getContext('webgl', { antialias: true, alpha: false, preserveDrawingBuffer: true });
+if (!gl) { document.body.style.background = '#000'; throw new Error('WebGL not supported'); }
 
 let _s = 20261110;
 function rand() { _s = (_s * 1664525 + 1013904223) >>> 0; return _s / 4294967296; }
